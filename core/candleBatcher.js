@@ -30,11 +30,11 @@ CandleBatcher.prototype.write = function(candles) {
 
   _.each(candles, function(candle) {
     this.smallCandles.push(candle);
-    this.check();
+    this.check(candle.start);
   }, this);
 }
 
-CandleBatcher.prototype.check = function() {
+CandleBatcher.prototype.check = function(start) {
   let divisor = this.candleSize*60;
   if ((start.unix()+60) % divisor !== 0 ) {
     return;

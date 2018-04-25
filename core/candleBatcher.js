@@ -35,8 +35,10 @@ CandleBatcher.prototype.write = function(candles) {
 }
 
 CandleBatcher.prototype.check = function() {
-  if(_.size(this.smallCandles) % this.candleSize !== 0)
+  let divisor = this.candleSize*60;
+  if ((start.unix()+60) % divisor !== 0 ) {
     return;
+  }
 
   this.emit('candle', this.calculate());
   this.smallCandles = [];

@@ -52,7 +52,10 @@ Stitcher.prototype.prepareHistoricalData = function(done) {
     'minutes of historic data. Checking availablity..'
   );
 
+  var divisor = config.tradingAdvisor.candleSize * 60;
   var endTime = moment().utc().startOf('minute');
+  var tmp = Math.floor(endTime.unix() / divisor) * divisor;
+  endTime = moment.unix(tmp);
   var idealStartTime = endTime.clone().subtract(requiredHistory, 'm');
 
   this.reader.mostRecentWindow(idealStartTime, endTime, function(localData) {
